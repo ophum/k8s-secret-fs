@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  #testfile: 44OG44K544OI44OV44Kh44Kk44Or44Gu5YaF5a65Cg==
+  newfile: 44OV44Kh44Kk44Or44KS6L+95YqgCg==
+kind: Secret
+metadata:
+  name: test-secret
+  namespace: secretfs
+type: Opaque
