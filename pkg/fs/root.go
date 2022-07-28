@@ -25,7 +25,7 @@ func (r *SecretRoot) OnAdd(ctx context.Context) {
 	}
 
 	for name, _ := range secret.Data {
-		ch := r.Inode.NewPersistentInode(ctx, &SecretFile{key: name}, fs.StableAttr{Mode: syscall.S_IFREG})
+		ch := r.Inode.NewPersistentInode(ctx, &SecretFile{key: name, client: r.client}, fs.StableAttr{Mode: syscall.S_IFREG})
 		r.Inode.AddChild(name, ch, true)
 	}
 }
@@ -38,7 +38,7 @@ func (r *SecretRoot) Readdir(ctx context.Context) (fs.DirStream, syscall.Errno) 
 
 	var entries []fuse.DirEntry
 	for name := range secret.Data {
-		ch := r.Inode.NewPersistentInode(ctx, &SecretFile{key: name}, fs.StableAttr{Mode: syscall.S_IFREG})
+		ch := r.Inode.NewPersistentInode(ctx, &SecretFile{key: name, client: r.client}, fs.StableAttr{Mode: syscall.S_IFREG})
 		r.Inode.AddChild(name, ch, true)
 		entries = append(entries, fuse.DirEntry{
 			Name: name,
