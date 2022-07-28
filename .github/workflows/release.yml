@@ -3,8 +3,8 @@ name: goreleaser
 on:
   push:
     # run only against tags
-    branches:
-      - main
+    tags:
+      - "v*"
 
 permissions:
   contents: write
@@ -12,23 +12,6 @@ permissions:
   # issues: write
 
 jobs:
-  tag-bump:
-    name: bump tag
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out
-        id: check-out
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-      - name: Github Tag Bump
-        id: tag-bump
-        uses: anothrNick/github-tag-action@1.39.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: minor
-          WITH_V: true
-          RELEASE_BRANCHES: main
   goreleaser:
     runs-on: ubuntu-latest
     steps:
