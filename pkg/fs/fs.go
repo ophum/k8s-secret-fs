@@ -19,5 +19,10 @@ func NewSecretFS(client *k8s.Client) *SecretFS {
 }
 
 func (f *SecretFS) Mount(mountPoint string) (*fuse.Server, error) {
-	return fs.Mount(mountPoint, f.root, &fs.Options{})
+	return fs.Mount(mountPoint, f.root, &fs.Options{
+		MountOptions: fuse.MountOptions{
+			FsName: "k8s-secret-fs",
+			Name:   "k8s-secret-fs",
+		},
+	})
 }
