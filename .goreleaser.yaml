@@ -11,10 +11,8 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
-archives:
-  - replacements:
-      linux: Linux
-      amd64: x86_64
+    goarch:
+      - amd64
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -25,3 +23,8 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+release:
+  prerelease: auto
+  github:
+    owner: ophum
+    name: k8s-secret-fs
